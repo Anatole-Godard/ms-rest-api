@@ -7,8 +7,8 @@ import (
 )
 
 type params struct {
-	param1 string
-	param2 string
+	param1 int
+	param2 int
 }
 
 func postMethod(c *gin.Context) {
@@ -21,7 +21,8 @@ func postMethod(c *gin.Context) {
 
 	// Add the new album to the slice.
 	fmt.Printf("%+v\n", param)
-	c.IndentedJSON(http.StatusOK, param)
+	var addition = param.param1 + param.param2
+	c.IndentedJSON(http.StatusOK, addition)
 }
 
 func main() {
