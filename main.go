@@ -7,21 +7,23 @@ import (
 )
 
 type params struct {
-	param1 int
-	param2 int
+	Param1 int `json:"param1"`
+	Param2 int `json:"param2"`
 }
 
 func postMethod(c *gin.Context) {
-	var param params
 
-	// Call BindJSON to bind the received JSON
-	if err := c.BindJSON(&param); err != nil {
-		return
+	var requestBody params
+
+	if err := c.BindJSON(&requestBody); err != nil {
+		c.IndentedJSON(
+			http.StatusBadRequest,
+			"pas contente",
+		)
 	}
 
-	// Add the new album to the slice.
-	fmt.Printf("%+v\n", param)
-	var addition = param.param1 + param.param2
+	fmt.Printf("%+v\n", requestBody)
+	var addition = requestBody.Param1 + requestBody.Param2
 	c.IndentedJSON(http.StatusOK, addition)
 }
 
